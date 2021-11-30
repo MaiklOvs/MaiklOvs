@@ -4,19 +4,19 @@
 
 
 using namespace std;
-class List //Список
+class List 
 {
 public:
 	List();  //Конструктор
 	~List(); //Деструктор
-	void push_back(string Data); // Добавление элемента в очередь
+	void push_back(int Data); // Добавление элемента в очередь
 private:
 class Node //Элемент очереди
 {
 	public:
 		Node* Next; // Указатель на следующий элемент очереди
-			string Data; // Данные, которые хранит элемент очереди
-			Node(string Data, Node* Next = nullptr)
+			int Data; // Данные, которые хранит элемент очереди
+			Node(int Data, Node* Next = nullptr)
 			{
 				this->Data = Data;
 				this->Next = Next;
@@ -38,7 +38,7 @@ List::~List()
 {
 }
 
-void List::push_back(string Data) // Добавление элемента в очередь
+void List::push_back(int Data) // Добавление элемента в очередь
 {
 	if (Head == nullptr)  //Проверка, создан ли первый элемент
 	{
@@ -57,23 +57,28 @@ void List::push_back(string Data) // Добавление элемента в о
 }
 
 int main() {
-setlocale(LC_ALL, "Russian");
-List Quen;
-vector<string> a = 
+	setlocale(LC_ALL, "Russian");
+	List Quen;
+/*	vector<string> a =
 	{
-	        "Запустить гугл",
-	        "Запустить Steam",
-	        "Запустить Dota 2",
-	        "Свернуть окно",
-	        "Развернуть окно",
+	"Запустить гугл",
+	"Запустить Steam",
+	"Запустить Dota 2",
+	"Свернуть окно",
+	"Развернуть окно",
 	};
-cout << "Планировщик заданий Windows" << endl;
-cout << "Планируем случайным образом три задания" << endl;
-for (size_t i = 0; i < 4; i++)
+	cout << "Планировщик заданий Windows" << endl;
+	cout << "Планируем случайным образом три задания" << endl;
+	for (size_t i = 0; i < 4; i++)
 	{
 			Quen.push_back(a[rand() % 5]);
 	} 
-		
+*/	
+
+	for (size_t i = 0; i < rand()%10+1; i++)
+	{
+		Quen.push_back(rand()%100+1);
+	}
 	
 	
 	
