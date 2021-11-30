@@ -1,0 +1,81 @@
+#include <iostream>
+#include <string>
+#include <vector>
+
+
+using namespace std;
+class List //Список
+{
+public:
+	List();  //Конструктор
+	~List(); //Деструктор
+	void push_back(string Data); // Добавление элемента в очередь
+private:
+class Node //Элемент очереди
+{
+	public:
+		Node* Next; // Указатель на следующий элемент очереди
+			string Data; // Данные, которые хранит элемент очереди
+			Node(string Data, Node* Next = nullptr)
+			{
+				this->Data = Data;
+				this->Next = Next;
+			}
+};
+	Node *Head; //Голова списка
+	int Size; //Количество  элементов
+	 
+};
+
+
+List::List()
+{
+	Size = 0;
+	Head = nullptr;
+}
+
+List::~List()
+{
+}
+
+void List::push_back(string Data) // Добавление элемента в очередь
+{
+	if (Head == nullptr)  //Проверка, создан ли первый элемент
+	{
+		Head = new Node(Data); // Создание первого элемента, в случае его отсутствия
+	}
+	else
+	{
+		Node* current = Head; // Временная переменная для поиска последнего элемента
+		while (current->Next != nullptr) //Поиск последенего элемента, чтобы добавить новый
+		{
+			current = current->Next;
+		}
+		current->Next = new Node(Data);
+	}
+	Size++;
+}
+
+int main() {
+setlocale(LC_ALL, "Russian");
+List Quen;
+vector<string> a = 
+	{
+	        "Запустить гугл",
+	        "Запустить Steam",
+	        "Запустить Dota 2",
+	        "Свернуть окно",
+	        "Развернуть окно",
+	};
+cout << "Планировщик заданий Windows" << endl;
+cout << "Планируем случайным образом три задания" << endl;
+for (size_t i = 0; i < 4; i++)
+	{
+			Quen.push_back(a[rand() % 5]);
+	} 
+		
+	
+	
+	
+	
+}
