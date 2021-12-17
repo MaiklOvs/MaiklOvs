@@ -16,6 +16,9 @@ public:
 	void pop_front(); // Удаление элемента
 	void Clear();//Очистка очереди
 private:
+/// <summary>
+/// Узел списка
+/// </summary>
 class Node //Элемент очереди
 {
 	public:
