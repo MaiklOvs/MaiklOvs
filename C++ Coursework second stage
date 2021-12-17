@@ -1,0 +1,188 @@
+#include <iostream>
+#include <string>
+#include <vector>
+
+/// <summary>
+/// Класс для структуры данных очередь
+/// </summary>
+class Queue 
+{
+public:
+	Queue();  //Конструктор
+	~Queue(); //Деструктор
+	void push_back(std::string Data); // Добавление элемента в очередь
+	int GetSize() { return Size; } //Получение количества элементов
+	void PrintQueue(); //Распечатка задач очереди
+	void pop_front(); // Удаление элемента
+	void Clear();//Очистка очереди
+private:
+class Node //Элемент очереди
+{
+	public:
+		Node* Next; // Указатель на следующий элемент очереди
+		std::string Data; // Данные, которые хранит элемент очереди
+			Node(std::string Data, Node* Next = nullptr)
+			{
+				this->Data = Data;
+				this->Next = Next;
+			}
+};
+	Node *Head; //Голова списка
+	int Size; //Количество  элементов
+	 
+};
+
+/// <summary>
+/// Конструктор
+/// </summary>
+Queue::Queue()
+{
+	Size = 0;
+	Head = nullptr;
+}
+/// <summary>
+/// Деструктор
+/// </summary>
+Queue::~Queue()
+{
+	Clear();
+}
+/// <summary>
+/// Добавление элемента в очередь
+/// </summary>
+/// <param name="Data">Элемент очереди</param>
+void Queue::push_back(std::string Data) 
+{
+	if (Head == nullptr)  //Проверка, создан ли первый элемент
+	{
+		Head = new Node(Data); // Создание первого элемента, в случае его отсутствия
+	}
+	else
+	{
+		Node* current = Head; // Временная переменная для поиска последнего элемента
+		while (current->Next != nullptr) //Поиск последенего элемента, чтобы добавить новый
+		{
+			current = current->Next; // Переход к следующему элементу очереди
+		}
+		current->Next = new Node(Data); // Создание нового элемента 
+		
+	}
+	Size++;
+	
+}
+/// <summary>
+/// Распечатка задач на консоль
+/// </summary>
+/// <param name="a"></param>
+void Queue::PrintQueue()
+{
+	if (Size != 0)	{
+		Node* current = Head; // Временная переменная для поиска последнего элемента
+		for (size_t i = 0; i < GetSize(); i++)
+		{
+			std::cout << "\t" << current->Data << std::endl; //Вывод информации из поля Data
+			current = current->Next; // Переход к следующему элементу очереди
+		}
+					}
+	else
+	{
+		std::cout << "\t" << "В данный момент задач нет" << std::endl;
+	} 
+		
+	
+}
+/// <summary>
+/// Исключение первого элемента
+/// </summary>
+void Queue::pop_front()
+{
+	if (Size > 0) {
+		Node* temp = Head; // Временная переменная 
+		Head = Head->Next; // Переход к следующему элементу
+		delete temp; // Удаление
+		Size--;
+		
+	}
+	else {
+		std::cout << "\t" << "В данный момент задач нет" << std::endl;
+	}
+}
+/// <summary>
+/// Очистка очереди
+/// </summary>
+void Queue::Clear()
+{
+	while (Size)
+	{
+		pop_front();
+	}
+}
+/// <summary>
+/// Получение случайной задачи
+/// </summary>
+/// <param name="a">Массив с задачами</param>
+/// <returns></returns>
+std::string GetRandomTask(std::vector<std::string>& a) {
+	return a[rand() % 4 + 1];
+}
+
+int main() {
+	setlocale(LC_ALL, "Russian");
+	Queue Queue;
+	std::vector<std::string> a =
+	{
+	"Запустить гугл",
+	"Запустить Steam",
+	"Запустить Dota 2",
+	"Свернуть окно",
+	"Развернуть окно",
+	};
+	int n;
+	do
+	{
+		std::cout << "0 - Завершить программу" << std::endl << "1 - Запустить планировщик задач"
+			<<std::endl << "2 - Распечатать задачи"<< std::endl<< "3 - Распечатать количество задач"
+			<< std::endl << "4 - Выполнить первую задачу"<< std::endl << "5 - очистка задач"<<std::endl;
+		std::cin >> n;
+		switch (n)
+		{
+		case 0: {
+			std::cout << "Задачи очищены, программа завершена успешно";
+			break;
+				}
+		case 1: {
+			for (size_t i = 0; i < rand() % 10; i++)
+			{
+				Queue.push_back(GetRandomTask(a));
+			}
+				
+			std::cout <<"\t" << "Задачи успешно сгенерированы" << std::endl;
+			break;
+				}
+		case 2: {
+			Queue.PrintQueue();
+			break;
+				}
+		case 3: {
+			std::cout <<"\t" << "Количество задач = " << "\t" << Queue.GetSize() << std::endl;
+			break;
+				}
+		case 4: {
+			Queue.pop_front();
+			Queue.PrintQueue();
+			break;
+				}
+		case 5: {
+			Queue.Clear();
+			std::cout<< "\t" << "Очистка задач" << std::endl <<"\t" 
+				<< "Количество задач = " << Queue.GetSize() << std::endl;
+			break;
+				}
+		default: std::cout <<"\t" << "Неизвестная команда" << std::endl;
+			break;
+		}
+		
+	} while (n!=0);
+	
+	return 0;
+}
